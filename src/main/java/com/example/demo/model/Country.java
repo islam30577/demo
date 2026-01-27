@@ -1,40 +1,20 @@
 package com.example.demo.model;
 
-public class Country {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Table("countries")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Country {
+    
+    @Id
     private Long id;
     private String countryFull;
     private String countryShort;
-
-    public Country() {}
-
-    public Country(Long id, String countryFull, String countryShort) {
-        this.id = id;
-        this.countryFull = countryFull;
-        this.countryShort = countryShort;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCountryFull() {
-        return countryFull;
-    }
-
-    public void setCountryFull(String countryFull) {
-        this.countryFull = countryFull;
-    }
-
-    public String getCountryShort() {
-        return countryShort;
-    }
-
-    public void setCountryShort(String countryShort) {
-        this.countryShort = countryShort;
-    }
 }
