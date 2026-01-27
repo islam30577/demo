@@ -33,7 +33,7 @@ public class JdbcAddressRepository {
         }
     };
 
-    // Убрать @Override - это просто методы класса
+
     public List<Address> findAll() {
         String sql = "SELECT id, person, city_id, street, building, office FROM addresses ORDER BY person";
         return jdbcTemplate.query(sql, rowMapper);

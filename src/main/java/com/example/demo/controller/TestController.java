@@ -2,10 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Country;
 import com.example.demo.model.Address;
-// Убираем старые импорты Spring Data репозиториев
-// import com.example.demo.repository.CountryRepository;
-// import com.example.demo.repository.AddressRepository;
-import com.example.demo.repository.JdbcCountryRepository;  // Добавляем импорт Jdbc репозиториев
+
+import com.example.demo.repository.JdbcCountryRepository;  
 import com.example.demo.repository.JdbcAddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,7 @@ import java.util.List;
 @Controller
 public class TestController {
     
-    // Используем JdbcTemplate реализации напрямую
+
     private final JdbcCountryRepository countryRepository;
     private final JdbcAddressRepository addressRepository;
     
@@ -32,8 +30,8 @@ public class TestController {
     
     @GetMapping("/test/jdbc")
     public String testJdbcPage(Model model) {
-        List<Country> countries = countryRepository.findAll();  // Метод из JdbcCountryRepository
-        List<Address> addresses = addressRepository.findAll();  // Метод из JdbcAddressRepository
+        List<Country> countries = countryRepository.findAll(); 
+        List<Address> addresses = addressRepository.findAll();  
         
         model.addAttribute("countries", countries);
         model.addAttribute("addresses", addresses);
