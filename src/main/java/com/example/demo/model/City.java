@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -15,6 +18,11 @@ public class City {
     
     @Id
     private Long id;
-    private Long regionId;  
+    
+    @NotNull(message = "ID региона обязателен")
+    private Long regionId;
+    
+    @NotBlank(message = "Название города обязательно")
+    @Size(min = 2, message = "Название города должно содержать минимум 2 символа")
     private String city;
 }
