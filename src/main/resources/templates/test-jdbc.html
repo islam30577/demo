@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Адресная система</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 300px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .search-form {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .nav-links {
+            margin: 20px 0;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="nav-links">
+        <a href="/">Главная</a>
+        <a href="/test/jdbc">Обновить</a>
+    </div>
+
+    <h1>Адресная система</h1>
+
+    <!-- Поиск -->
+    <div class="search-form">
+        <h3>Поиск</h3>
+        <form th:action="@{/test/jdbc/search}" method="get">
+            <div class="form-group">
+                <label>ФИО:</label>
+                <input type="text" name="search" th:value="${searchQuery}">
+                <button type="submit">Найти</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Страны -->
+    <div class="section">
+        <h2>Страны</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Полное название</th>
+                <th>Короткое</th>
+            </tr>
+            <tr th:each="country : ${countries}">
+                <td th:text="${country.id}">1</td>
+                <td th:text="${country.countryFull}">Россия</td>
+                <td th:text="${country.countryShort}">RU</td>
+            </tr>
+        </table>
+
+        <form th:action="@{/test/jdbc/add-country}" method="post">
+            <div class="form-group">
+                <label>Полное название:</label>
+                <input type="text" name="countryFull" required>
+            </div>
+            <div class="form-group">
+                <label>Короткое название:</label>
+                <input type="text" name="countryShort" required>
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+
+    <!-- Адреса -->
+    <div class="section">
+        <h2>Адреса</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Город</th>
+                <th>Улица</th>
+                <th>Дом</th>
+                <th>Офис</th>
+            </tr>
+            <tr th:each="address : ${addresses}">
+                <td th:text="${address.id}">1</td>
+                <td th:text="${address.person}">Иванов Иван</td>
+                <td th:text="${address.cityId}">1</td>
+                <td th:text="${address.street}">Ленина</td>
+                <td th:text="${address.building}">10</td>
+                <td th:text="${address.office}">5</td>
+            </tr>
+        </table>
+
+        <form th:action="@{/test/jdbc/add-address}" method="post">
+            <div class="form-group">
+                <label>ФИО:</label>
+                <input type="text" name="person" required>
+            </div>
+            <div class="form-group">
+                <label>ID города:</label>
+                <input type="number" name="cityId" required>
+            </div>
+            <div class="form-group">
+                <label>Улица:</label>
+                <input type="text" name="street" required>
+            </div>
+            <div class="form-group">
+                <label>Дом:</label>
+                <input type="text" name="building" required>
+            </div>
+            <div class="form-group">
+                <label>Офис:</label>
+                <input type="text" name="office">
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
