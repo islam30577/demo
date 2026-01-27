@@ -18,7 +18,6 @@ public class JdbcAddressRepository {
     public JdbcAddressRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
     private final RowMapper<Address> rowMapper = new RowMapper<Address>() {
         @Override
         public Address mapRow(ResultSet rs, int rowNum) throws SQLException {
