@@ -1,70 +1,23 @@
 package com.example.demo.model;
 
-public class Address {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Table("addresses")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Address {
+    
+    @Id
     private Long id;
     private String person;
-    private City city;
+    private Long cityId;  
     private String street;
     private String building;
     private String office;
-
-    public Address() {}
-
-    public Address(Long id, String person, City city, String street, String building, String office) {
-        this.id = id;
-        this.person = person;
-        this.city = city;
-        this.street = street;
-        this.building = building;
-        this.office = office;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPerson() {
-        return person;
-    }
-
-    public void setPerson(String person) {
-        this.person = person;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(String building) {
-        this.building = building;
-    }
-
-    public String getOffice() {
-        return office;
-    }
-
-    public void setOffice(String office) {
-        this.office = office;
-    }
 }
