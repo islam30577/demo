@@ -1,11 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>DemoSpring</title>
+    <meta charset="UTF-8">
+    <title>Address Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        a {
+            display: inline-block;
+            margin: 15px;
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #764ba2;
+        }
+    </style>
 </head>
 <body>
-<h1>Добро пожаловать...</h1>
-<img th:src="@{/images/islam.jpg}"/>
+    <!-- Логотип и название приложения -->
+    <img th:src="@{/images/logo.jpg}" alt="Logo" class="logo">
+    <h1>Address Manager</h1>
+
+    <!-- Ссылки на страницы с операциями -->
+    <div>
+        <a href="/addresses">Управление адресами</a>
+        <a href="/geodata">Географические данные</a>
+    </div>
 </body>
 </html>
