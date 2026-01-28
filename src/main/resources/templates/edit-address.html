@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать адрес</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        .validationError {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .btn-cancel {
+            background-color: #f44336;
+        }
+        .btn-cancel:hover {
+            background-color: #da190b;
+        }
+        .nav-links {
+            margin: 20px 0;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .nav-links a:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-links">
+        <a href="/">Главная</a>
+        <a href="/addresses">Назад к списку</a>
+    </div>
+    
+    <h1>Редактировать адрес</h1>
+    
+    <form th:action="@{/addresses/edit/{id}(id=${address.id})}" method="post" th:object="${address}">
+        <div class="form-group">
+            <label>ФИО:</label>
+            <input type="text" th:field="*{person}" placeholder="Введите ФИО">
+            <div class="validationError" th:if="${#fields.hasErrors('person')}" 
+                 th:errors="*{person}">Ошибка ФИО</div>
+        </div>
+        
+        <div class="form-group">
+            <label>ID города:</label>
+            <input type="number" th:field="*{cityId}" placeholder="Введите ID города">
+            <div class="validationError" th:if="${#fields.hasErrors('cityId')}" 
+                 th:errors="*{cityId}">Ошибка ID города</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Улица:</label>
+            <input type="text" th:field="*{street}" placeholder="Введите улицу">
+            <div class="validationError" th:if="${#fields.hasErrors('street')}" 
+                 th:errors="*{street}">Ошибка улицы</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Дом:</label>
+            <input type="text" th:field="*{building}" placeholder="Введите номер дома">
+            <div class="validationError" th:if="${#fields.hasErrors('building')}" 
+                 th:errors="*{building}">Ошибка дома</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Офис:</label>
+            <input type="text" th:field="*{office}" placeholder="Введите номер офиса (необязательно)">
+        </div>
+        
+        <div class="form-group">
+            <button type="submit">Сохранить изменения</button>
+            <a href="/addresses">
+                <button type="button" class="btn-cancel">Отмена</button>
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

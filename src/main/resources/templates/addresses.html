@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление адресами</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .nav-links {
+            margin: 20px 0;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .nav-links a:hover {
+            background-color: #0b7dda;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .actions a {
+            margin-right: 10px;
+            padding: 4px 8px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .edit-btn {
+            background-color: #FFC107;
+            color: black;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .search-form {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .validationError {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-links">
+        <a href="/">Главная</a>
+        <a href="/addresses">Обновить список</a>
+        <a href="/addresses/add">Добавить адрес</a>
+    </div>
+    
+    <h1>Управление адресами</h1>
+    
+    <!-- Поиск -->
+    <div class="search-form">
+        <h3>Поиск адресов</h3>
+        <form th:action="@{/addresses/search}" method="get">
+            <div class="form-group">
+                <label>ФИО:</label>
+                <input type="text" name="search" th:value="${searchQuery}">
+                <button type="submit">Найти</button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Таблица адресов -->
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>ID города</th>
+            <th>Улица</th>
+            <th>Дом</th>
+            <th>Офис</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="address : ${addresses}">
+            <td th:text="${address.id}">1</td>
+            <td th:text="${address.person}">Иванов Иван</td>
+            <td th:text="${address.cityId}">1</td>
+            <td th:text="${address.street}">Ленина</td>
+            <td th:text="${address.building}">10</td>
+            <td th:text="${address.office}">5</td>
+            <td class="actions">
+                <a th:href="@{/addresses/edit/{id}(id=${address.id})}" class="edit-btn">Изменить</a>
+                <a th:href="@{/addresses/delete/{id}(id=${address.id})}" class="delete-btn" 
+                   onclick="return confirm('Удалить этот адрес?')">Удалить</a>
+            </td>
+        </tr>
+    </table>
+    
+    <div th:if="${addresses.empty}">
+        <p>Адресов не найдено.</p>
+    </div>
+</div>
+</body>
+</html>

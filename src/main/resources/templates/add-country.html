@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить страну</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        .validationError {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .btn-cancel {
+            background-color: #f44336;
+        }
+        .btn-cancel:hover {
+            background-color: #da190b;
+        }
+        .nav-links {
+            margin: 20px 0;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .nav-links a:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-links">
+        <a href="/">Главная</a>
+        <a href="/geodata">Назад к данным</a>
+    </div>
+    
+    <h1>Добавить новую страну</h1>
+    
+    <form th:action="@{/geodata/countries/add}" method="post" th:object="${country}">
+        <div class="form-group">
+            <label>Полное название страны:</label>
+            <input type="text" th:field="*{countryFull}" placeholder="Введите полное название">
+            <div class="validationError" th:if="${#fields.hasErrors('countryFull')}" 
+                 th:errors="*{countryFull}">Ошибка названия</div>
+        </div>
+        
+        <div class="form-group">
+            <label>Короткое название:</label>
+            <input type="text" th:field="*{countryShort}" placeholder="Введите короткое название">
+            <div class="validationError" th:if="${#fields.hasErrors('countryShort')}" 
+                 th:errors="*{countryShort}">Ошибка короткого названия</div>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit">Добавить страну</button>
+            <a href="/geodata">
+                <button type="button" class="btn-cancel">Отмена</button>
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

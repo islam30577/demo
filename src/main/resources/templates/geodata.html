@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Географические данные</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .nav-links {
+            margin: 20px 0;
+        }
+        .nav-links a {
+            display: inline-block;
+            margin-right: 15px;
+            padding: 8px 16px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .nav-links a:hover {
+            background-color: #0b7dda;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .actions a {
+            margin-right: 10px;
+            padding: 4px 8px;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="nav-links">
+        <a href="/">Главная</a>
+        <a href="/geodata">Обновить</a>
+    </div>
+    
+    <h1>Географические данные</h1>
+    
+    <div class="grid">
+        <!-- Страны -->
+        <div class="section">
+            <h3>Страны <a href="/geodata/countries/add" class="add-btn">+ Добавить</a></h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Полное название</th>
+                    <th>Короткое</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="country : ${countries}">
+                    <td th:text="${country.id}">1</td>
+                    <td th:text="${country.countryFull}">Россия</td>
+                    <td th:text="${country.countryShort}">RU</td>
+                    <td class="actions">
+                        <a th:href="@{/geodata/countries/delete/{id}(id=${country.id})}" 
+                           class="delete-btn" onclick="return confirm('Удалить эту страну?')">Удалить</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Регионы -->
+        <div class="section">
+            <h3>Регионы <a href="/geodata/regions/add" class="add-btn">+ Добавить</a></h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>ID страны</th>
+                    <th>Название</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="region : ${regions}">
+                    <td th:text="${region.id}">1</td>
+                    <td th:text="${region.countryId}">1</td>
+                    <td th:text="${region.region}">Московская область</td>
+                    <td class="actions">
+                        <a th:href="@{/geodata/regions/delete/{id}(id=${region.id})}" 
+                           class="delete-btn" onclick="return confirm('Удалить этот регион?')">Удалить</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Города -->
+        <div class="section">
+            <h3>Города <a href="/geodata/cities/add" class="add-btn">+ Добавить</a></h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>ID региона</th>
+                    <th>Название</th>
+                    <th>Действия</th>
+                </tr>
+                <tr th:each="city : ${cities}">
+                    <td th:text="${city.id}">1</td>
+                    <td th:text="${city.regionId}">1</td>
+                    <td th:text="${city.city}">Москва</td>
+                    <td class="actions">
+                        <a th:href="@{/geodata/cities/delete/{id}(id=${city.id})}" 
+                           class="delete-btn" onclick="return confirm('Удалить этот город?')">Удалить</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

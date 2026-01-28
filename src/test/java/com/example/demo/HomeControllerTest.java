@@ -22,8 +22,24 @@ public class HomeControllerTest {
     @Test
     public void testHomePage() throws Exception {
         mockMvc.perform(get("/"))
-            .andExpect(status().isOk()) // Проверяем, что статус 200 OK
-            .andExpect(view().name("home")) // Проверяем имя представления
-            .andExpect(content().string(containsString("Welcome to Spring Boot Application!"))); // Проверяем содержимое
+            .andExpect(status().isOk())
+            .andExpect(view().name("home"))
+            .andExpect(content().string(containsString("Address Manager")));
+    }
+    
+    @Test
+    public void testAddressesPage() throws Exception {
+        mockMvc.perform(get("/addresses"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("addresses"))
+            .andExpect(content().string(containsString("Управление адресами")));
+    }
+    
+    @Test
+    public void testGeoDataPage() throws Exception {
+        mockMvc.perform(get("/geodata"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("geodata"))
+            .andExpect(content().string(containsString("Географические данные")));
     }
 }
